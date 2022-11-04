@@ -14,65 +14,49 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.projectcompose.presentation.component.CharacterCard
+import com.projectcompose.presentation.component.RickTopBar
 
 @ExperimentalMaterial3Api
 @ExperimentalFoundationApi
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
-
     val state = viewModel.stateFlow.collectAsState().value
-
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = "HomeScreen")
-                },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                    titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            )
+            RickTopBar()
         },
-        content = { values ->
+        content = { padding ->
             Box(modifier = Modifier.fillMaxSize()) {
-
-                LazyVerticalStaggeredGrid(
-                    columns = StaggeredGridCells.Fixed(2),
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = values
-                ) {
-                    state.data.size.let { total ->
-                        items(total) { i ->
-                            val data = state.data[i]
-                            CharacterCard(data = data) {}
-                        }
-                    }
-                }
-
                 if (state.isLoading) {
                     CircularProgressIndicator(
                         modifier = Modifier.align(Alignment.Center)
                     )
                 }
-
-                if (state.isError?.isNotBlank() == true) {
+                if (state.data.isNotEmpty()) {
+                    LazyVerticalStaggeredGrid(
+                        columns = StaggeredGridCells.Fixed(2),
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = padding
+                    ) {
+                        state.data.size.let { total ->
+                            items(total) { i ->
+                                val data = state.data[i]
+                                CharacterCard(data = data) {}
+                            }
+                        }
+                    }
+                }
+                if (state.isError?.isNotEmpty() == true) {
                     Text(
                         text = state.isError,
+                        style = MaterialTheme.typography.titleLarge,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .align(Alignment.Center)
+                            .align(Alignment.Center),
                     )
                 }
-
             }
         },
-        bottomBar = {
-            BottomAppBar {
-
-            }
-        }
     )
-
 }
