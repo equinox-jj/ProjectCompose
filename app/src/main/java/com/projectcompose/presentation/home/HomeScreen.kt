@@ -13,13 +13,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.projectcompose.presentation.component.CharacterCard
 import com.projectcompose.presentation.component.RickTopBar
+import com.projectcompose.presentation.navigation.AppNavigation
 
 @ExperimentalMaterial3Api
 @ExperimentalFoundationApi
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(
+    viewModel: HomeViewModel = hiltViewModel(),
+    navController: NavController,
+) {
     val state = viewModel.stateFlow.collectAsState().value
     Scaffold(
         topBar = {
@@ -41,7 +46,12 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                         state.data.size.let { total ->
                             items(total) { i ->
                                 val data = state.data[i]
-                                CharacterCard(data = data) {}
+                                CharacterCard(
+                                    data = data,
+                                    onClick = {
+                                        navController.navigate(AppNavigation.Detail.route)
+                                    }
+                                )
                             }
                         }
                     }
