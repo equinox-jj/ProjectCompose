@@ -7,9 +7,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.projectcompose.presentation.detail.DetailScreen
 import com.projectcompose.presentation.home.HomeScreen
 import com.projectcompose.presentation.navigation.AppNavigation
@@ -32,7 +34,9 @@ fun MainContent() {
                 composable(route = AppNavigation.Home.route) {
                     HomeScreen(navController = navController)
                 }
-                composable(route = AppNavigation.Detail.route) {
+                composable(
+                    route = AppNavigation.Detail.route + "/{id}",
+                    arguments = listOf(navArgument("id") { type = NavType.IntType })) {
                     DetailScreen()
                 }
             }

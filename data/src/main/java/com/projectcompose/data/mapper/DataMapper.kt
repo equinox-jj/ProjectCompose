@@ -13,6 +13,7 @@ fun CharacterResponse.responseToDomain(): CharacterData {
 
 fun ResultsItem.resultsToDomain(): CharacterResults {
     return CharacterResults(
+        id = id,
         image = image,
         gender = gender,
         species = species,

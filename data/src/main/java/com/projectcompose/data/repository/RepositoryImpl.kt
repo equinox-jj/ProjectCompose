@@ -19,4 +19,16 @@ class RepositoryImpl @Inject constructor(private val apiService: ApiService) : R
             emit(Resource.Error(e.localizedMessage ?: ""))
         }
     }
+
+    override fun getCharacterById(id: Int): Flow<Resource<CharacterResults>> = flow {
+        emit(Resource.Loading())
+        try {
+            val results = apiService.getCharacterById(id).resultsToDomain()
+            emit(Resource.Success(results))
+        } catch (e: Exception) {
+            emit(Resource.Error(e.localizedMessage ?: ""))
+        }
+    }
+
+
 }

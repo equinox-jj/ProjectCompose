@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface CharacterUseCase {
     fun getAllCharacters(): Flow<Resource<List<CharacterResults>>>
+    fun getCharacterById(id: Int): Flow<Resource<CharacterResults>>
 }

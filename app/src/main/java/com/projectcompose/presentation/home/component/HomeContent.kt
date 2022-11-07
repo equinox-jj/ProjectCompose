@@ -48,7 +48,7 @@ fun HomeContent(
                         CharacterCard(
                             data = data,
                             onClick = {
-                                navController.navigate(AppNavigation.Detail.route)
+                                navController.navigate(AppNavigation.Detail.route + "/${data.id}")
                             }
                         )
                     }

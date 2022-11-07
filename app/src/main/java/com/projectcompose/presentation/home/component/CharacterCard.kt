@@ -7,14 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.projectcompose.R
 import com.projectcompose.domain.model.CharacterResults
 
 @Composable
@@ -51,9 +47,9 @@ fun CharacterCard(
                     textAlign = TextAlign.Center,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
-                    fontSize = 13.sp,
-                    fontFamily = FontFamily.SansSerif
-                )
+                    style = MaterialTheme.typography.bodyLarge,
+
+                    )
                 Spacer(modifier = modifier.height(4.dp))
                 Text(
                     modifier = modifier.fillMaxWidth(),
@@ -61,8 +57,7 @@ fun CharacterCard(
                     textAlign = TextAlign.Center,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
-                    fontSize = 13.sp,
-                    fontFamily = FontFamily.SansSerif
+                    style = MaterialTheme.typography.bodyMedium
                 )
                 Spacer(modifier = modifier.height(4.dp))
                 Text(
@@ -71,22 +66,9 @@ fun CharacterCard(
                     textAlign = TextAlign.Center,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
-                    fontSize = 13.sp,
-                    fontFamily = FontFamily.SansSerif
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
         }
     }
-}
-
-@Preview(showSystemUi = true)
-@Composable
-fun CharacterCardPrev() {
-    val data: CharacterResults = CharacterResults(
-        R.drawable.ic_launcher_foreground.toString(),
-        "Male",
-        "Human",
-        "asdadasdsadasdasdasdasdasdasdasdad"
-    )
-    CharacterCard(data = data) {}
 }
