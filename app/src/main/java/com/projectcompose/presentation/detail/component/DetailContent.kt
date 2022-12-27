@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -17,7 +18,9 @@ fun DetailContent(
     padding: PaddingValues,
 ) {
     val state = viewModel.stateFlow.collectAsState().value
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .padding(top = padding.calculateTopPadding())) {
         Log.d("characterId", state.data?.id.toString())
         Text(
             modifier = Modifier.fillMaxSize(),
